@@ -51,6 +51,7 @@ Requirements: JDK 21, Android SDK with `platforms;android-37.2` and `build-tools
 
 ```bash
 ./gradlew testDebugUnitTest   # unit tests
+./gradlew lintDebug           # Android lint (CI fails on errors)
 ./gradlew assembleDebug       # app/build/outputs/apk/debug/app-debug.apk
 ./gradlew assembleRelease     # minified release APK
 ```

@@ -51,6 +51,7 @@
 
 ```bash
 ./gradlew testDebugUnitTest   # 單元測試
+./gradlew lintDebug           # Android lint（CI 遇到 error 會失敗）
 ./gradlew assembleDebug       # app/build/outputs/apk/debug/app-debug.apk
 ./gradlew assembleRelease     # 經過 R8 縮減的 release APK
 ```

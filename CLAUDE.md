@@ -48,6 +48,7 @@ Universal Video Downloader：Android App，下載多個平台**公開**內容的
 ## 建置 / 測試指令
 ```bash
 ./gradlew testDebugUnitTest
+./gradlew lintDebug            # CI 也會跑；有 lint error 就失敗
 ./gradlew assembleDebug
 ./gradlew assembleRelease
 adb install -r --user 0 app/build/outputs/apk/release/app-release.apk

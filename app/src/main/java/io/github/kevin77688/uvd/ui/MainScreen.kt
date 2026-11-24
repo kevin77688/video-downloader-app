@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -56,6 +57,8 @@ private val tabs = listOf(
 @Composable
 fun MainScreen(incoming: MutableStateFlow<IncomingLink?>, requestedTab: MutableStateFlow<Int?>) {
     val context = LocalContext.current
+    // Resources from composition (not Context) so strings follow configuration changes such as the language.
+    val resources = LocalResources.current
     val scope = rememberCoroutineScope()
     val snackbar = remember { SnackbarHostState() }
     val clipboard = remember { ClipboardWatcher(context) }
@@ -79,12 +82,12 @@ fun MainScreen(incoming: MutableStateFlow<IncomingLink?>, requestedTab: MutableS
         if (uri != null) {
             runCatching { AppSettings.setFolder(context, uri) }
                 .onSuccess {
-                    message(context.getString(R.string.msg_saving_to, MediaFolder.displayPath(context, uri)))
+                    message(resources.getString(R.string.msg_saving_to, MediaFolder.displayPath(context, uri)))
                     waiting?.let { DownloadService.start(context, it) }
                 }
-                .onFailure { message(context.getString(R.string.msg_folder_denied)) }
+                .onFailure { message(resources.getString(R.string.msg_folder_denied)) }
         } else if (waiting != null) {
-            message(context.getString(R.string.msg_folder_required))
+            message(resources.getString(R.string.msg_folder_required))
         }
     }
 
@@ -92,7 +95,7 @@ fun MainScreen(incoming: MutableStateFlow<IncomingLink?>, requestedTab: MutableS
         val match = Extractors.find(text)
         when {
             match == null -> message(
-                context.getString(if (text.isBlank()) R.string.msg_paste_first else R.string.msg_unsupported_link),
+                resources.getString(if (text.isBlank()) R.string.msg_paste_first else R.string.msg_unsupported_link),
             )
             AppSettings.hasValidFolder(context) -> DownloadService.start(context, match.url)
             else -> {
@@ -189,11 +192,11 @@ fun MainScreen(incoming: MutableStateFlow<IncomingLink?>, requestedTab: MutableS
                     onPaste = {
                         val text = clipboard.readText()
                         if (text.isNullOrBlank()) {
-                            message(context.getString(R.string.msg_clipboard_empty))
+                            message(resources.getString(R.string.msg_clipboard_empty))
                         } else {
                             val found = Extractors.find(text)
                             link = found?.url ?: text.trim()
-                            if (found == null) message(context.getString(R.string.msg_clipboard_no_link))
+                            if (found == null) message(resources.getString(R.string.msg_clipboard_no_link))
                         }
                     },
                     onDownload = { startDownload(link) },

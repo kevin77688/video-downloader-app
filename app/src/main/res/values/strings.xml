@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Universal Video Downloader</string>
 
     <!-- Navigation -->
@@ -48,7 +48,7 @@
     <string name="status_downloading_image">Downloading image</string>
     <string name="status_downloading_video">Downloading video</string>
     <string name="status_downloading_audio">Downloading audio</string>
-    <string name="status_items_done">%1$d/%2$d done</string>
+    <string name="status_items_done" tools:ignore="PluralsCandidate">%1$d/%2$d done</string>
     <string name="status_merging">Merging video and audio…</string>
     <string name="status_saving">Saving %1$s</string>
     <plurals name="saved_files">
