@@ -1,0 +1,29 @@
+# Gradle / build output
+.gradle/
+build/
+.kotlin/
+captures/
+/local.properties
+
+# IDE / OS
+.idea/
+*.iml
+.DS_Store
+
+# Signing — back these up manually, never commit
+keystore.properties
+keystore/
+*.jks
+*.keystore
+
+# Build artifacts
+*.apk
+*.aab
+
+# Machine-specific notes for Claude Code (device serials, local paths, accounts)
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Debug captures from device testing (adb screencap / uiautomator dump)
+/shot*.png
+/window_dump*.xml
