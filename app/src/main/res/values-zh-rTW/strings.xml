@@ -76,6 +76,7 @@
     <string name="err_live">無法下載直播。</string>
     <string name="err_merge">無法合併影片與音訊。</string>
     <string name="err_short_link">無法開啟這個分享連結。</string>
+    <string name="err_post_unreadable">無法讀取這則 %1$s 貼文。可能是私人、已刪除，或 %1$s 改版了。</string>
     <string name="err_threads_unreadable">無法讀取這則貼文。可能是私人、已刪除，或 Threads 改版了。</string>
 
     <!-- Gallery -->

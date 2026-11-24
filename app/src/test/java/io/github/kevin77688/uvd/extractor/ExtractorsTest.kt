@@ -73,6 +73,62 @@ class ExtractorsTest {
     }
 
     @Test
+    fun `instagram posts, reels and tv links normalize to post urls`() {
+        val canonical = "https://www.instagram.com/p/AbC-dEf_GhI/"
+        assertMatch("https://www.instagram.com/p/AbC-dEf_GhI/?igsh=MWxyZ2Fk&img_index=1", Platform.INSTAGRAM, canonical)
+        assertMatch("https://instagram.com/reel/AbC-dEf_GhI", Platform.INSTAGRAM, canonical)
+        assertMatch("https://www.instagram.com/reels/AbC-dEf_GhI/", Platform.INSTAGRAM, canonical)
+        assertMatch("https://www.instagram.com/tv/AbC-dEf_GhI/", Platform.INSTAGRAM, canonical)
+        assertMatch("https://www.instagram.com/some.user/p/AbC-dEf_GhI/", Platform.INSTAGRAM, canonical)
+        assertMatch("https://www.instagram.com/some_user/reel/AbC-dEf_GhI/?utm_source=ig_web_copy_link", Platform.INSTAGRAM, canonical)
+        assertMatch("https://instagr.am/p/AbC-dEf_GhI", Platform.INSTAGRAM, canonical)
+        assertMatch("Check this out! https://www.instagram.com/reel/AbC-dEf_GhI/?igsh=x", Platform.INSTAGRAM, canonical)
+    }
+
+    @Test
+    fun `instagram share links are kept for redirect`() {
+        assertMatch("https://www.instagram.com/share/AbCd1234Ef", Platform.INSTAGRAM, "https://www.instagram.com/share/AbCd1234Ef/")
+        assertMatch("https://www.instagram.com/share/reel/AbCd1234Ef/?x=1", Platform.INSTAGRAM, "https://www.instagram.com/share/reel/AbCd1234Ef/")
+    }
+
+    @Test
+    fun `instagram profiles, stories and audio pages are ignored`() {
+        assertNull(Extractors.find("https://www.instagram.com/some.user/"))
+        assertNull(Extractors.find("https://www.instagram.com/some.user/reels/"))
+        assertNull(Extractors.find("https://www.instagram.com/stories/some.user/1234567890123456789/"))
+        assertNull(Extractors.find("https://www.instagram.com/reels/audio/1234567890123456/"))
+        assertNull(Extractors.find("https://www.instagram.com/explore/"))
+    }
+
+    @Test
+    fun `facebook video links normalize to watch urls`() {
+        val canonical = "https://www.facebook.com/watch/?v=1234567890123456"
+        assertMatch("https://www.facebook.com/SomePage/videos/some-video-title/1234567890123456/", Platform.FACEBOOK, canonical)
+        assertMatch("https://www.facebook.com/SomePage/videos/1234567890123456", Platform.FACEBOOK, canonical)
+        assertMatch("https://www.facebook.com/watch/?v=1234567890123456&ref=sharing", Platform.FACEBOOK, canonical)
+        assertMatch("https://m.facebook.com/watch?v=1234567890123456", Platform.FACEBOOK, canonical)
+        assertMatch("https://web.facebook.com/video.php?v=1234567890123456", Platform.FACEBOOK, canonical)
+    }
+
+    @Test
+    fun `facebook reels and share links`() {
+        assertMatch("https://www.facebook.com/reel/1234567890123456?mibextid=abc", Platform.FACEBOOK, "https://www.facebook.com/reel/1234567890123456")
+        assertMatch("https://fb.watch/aBcD3eFgH1/?mibextid=x", Platform.FACEBOOK, "https://fb.watch/aBcD3eFgH1/")
+        assertMatch("https://www.facebook.com/share/v/1AbCdEfGh2/", Platform.FACEBOOK, "https://www.facebook.com/share/v/1AbCdEfGh2/")
+        assertMatch("https://www.facebook.com/share/r/1AbCdEfGh2", Platform.FACEBOOK, "https://www.facebook.com/share/r/1AbCdEfGh2/")
+    }
+
+    @Test
+    fun `facebook pages, posts and photos are ignored`() {
+        assertNull(Extractors.find("https://www.facebook.com/SomePage"))
+        assertNull(Extractors.find("https://www.facebook.com/SomePage/posts/1234567890123456"))
+        assertNull(Extractors.find("https://www.facebook.com/photo/?fbid=1234567890123456"))
+        assertNull(Extractors.find("https://www.facebook.com/share/p/1AbCdEfGh2/"))
+        assertNull(Extractors.find("https://www.facebook.com/watch/?v=notanid"))
+        assertNull(Extractors.find("https://www.facebook.com/SomePage/videos/"))
+    }
+
+    @Test
     fun `unsupported links are ignored`() {
         assertNull(Extractors.find("https://example.com/video.mp4"))
         assertNull(Extractors.find("https://www.threads.com/@user"))

@@ -35,6 +35,10 @@
 - [x] 平行下載：共用分段佇列、影音同時下載、多項目同時下載（最多 4 個），整個工作共用連線上限（預設 8）。
   實測 16 條連線時 Bilibili 音訊明顯變慢（3 秒 → 21 秒，無錯誤），故上限維持 8
 - [x] 圖庫每個項目加刪除按鈕（附確認對話框）
+- [x] Instagram extractor（貼文、Reels、輪播）：貼文頁內嵌的 JSON（與 Threads 同一套資料模型，但獨立解析）。
+  圖片取原圖（候選清單第一個）；影片用 `video_versions`（H.264 720p＋AAC），1080p DASH 為 VP9 暫不使用。實機（release APK）驗證圖片／Reel／輪播
+- [x] Facebook extractor（影片、Reels）：影片頁內嵌 `browser_native_hd_url`／`sd_url`（後接影片 `id`），取 HD 否則 SD。實機驗證 720p VP9＋AAC
+- [ ] Instagram／Facebook 分享按鈕連結（`instagram.com/share/…`、`fb.watch/…`、`facebook.com/share/v|r/…`）實機驗證——需使用者提供連結
 - [ ] 嘗試更多平台：條件為不需新依賴、未登入可用、`accept()` 能離線以網域辨識，且在 release APK 實機驗證通過才加入
   （候選：NewPipe 其他服務；X/Twitter、Reddit、Instagram、TikTok 等需先由使用者提供公開測試連結）
 

@@ -18,6 +18,8 @@ versions: [SemVer](https://semver.org). Add entries under **Unreleased** as you 
 - Faster downloads: files are split into small parts shared by all connections (no idle connections near the end),
   video and audio download at the same time, and multi-item posts download several items at once.
   Default connections raised from 4 to 8.
+- **Instagram** support (posts, reels, carousels): original-size images and videos.
+- **Facebook** support (videos and reels).
 - A delete button on every gallery item (long-press still works too).
 - Gallery filter per platform (with counts), sorting by newest / oldest / platform, and a platform badge on each item.
 - Traditional Chinese (繁體中文) UI.

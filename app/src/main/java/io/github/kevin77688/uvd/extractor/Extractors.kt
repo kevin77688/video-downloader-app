@@ -1,6 +1,8 @@
 package io.github.kevin77688.uvd.extractor
 
 import io.github.kevin77688.uvd.extractor.bilibili.BilibiliExtractor
+import io.github.kevin77688.uvd.extractor.facebook.FacebookExtractor
+import io.github.kevin77688.uvd.extractor.instagram.InstagramExtractor
 import io.github.kevin77688.uvd.extractor.threads.ThreadsExtractor
 import io.github.kevin77688.uvd.extractor.youtube.YouTubeExtractor
 
@@ -10,6 +12,8 @@ object Extractors {
         ThreadsExtractor,
         YouTubeExtractor,
         BilibiliExtractor,
+        InstagramExtractor,
+        FacebookExtractor,
     )
 
     val platforms: List<Platform> get() = all.map { it.platform }.distinct()

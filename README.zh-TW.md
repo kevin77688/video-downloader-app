@@ -20,6 +20,11 @@
 | Threads | `threads.com` / `threads.net` 貼文與分享連結 — 圖片、影片、輪播 | ✅ |
 | YouTube | 影片、Shorts、`youtu.be`、`music.youtube.com` 連結 — 最佳 H.264 畫質＋原始音軌，合併成一個 MP4 | ✅ |
 | Bilibili | `bilibili.com/video/…`（含多 P 的 `?p=`）、`b23.tv` 短網址 — 影片＋音訊合併成一個 MP4 | ✅（未登入時實測為 480p） |
+| Instagram | 貼文（`/p/`）、Reels、輪播 — 原尺寸圖片、影片（實測 720p） | ✅ ¹ |
+| Facebook | 影片（`/videos/…`、`/watch/?v=`）、Reels — 實測 720p；不支援相片貼文 | ✅ ¹ |
+
+¹ 從 App 分享按鈕取得的連結（`instagram.com/share/…`、`fb.watch/…`、`facebook.com/share/v|r/…`）會被接受並跟隨轉址，
+但尚未在實機上驗證。
 
 不支援：直播，以及年齡限制、私人、付費或地區限制的內容（需要登入）。
 
@@ -27,7 +32,7 @@
 
 ## 功能
 
-- **分享選單：** 在 Threads／YouTube／Bilibili／瀏覽器點「分享」，選 *Universal Video Downloader*。下載會在背景執行並顯示通知，不會開啟 App 畫面。
+- **分享選單：** 在 Threads／YouTube／Bilibili／Instagram／Facebook／瀏覽器點「分享」，選 *Universal Video Downloader*。下載會在背景執行並顯示通知，不會開啟 App 畫面。
 - **剪貼簿偵測：** 複製連結後打開 App，會自動填入。
 - **圖庫：** 可依平台篩選、排序（最新、最舊、依平台分組），每個項目都有刪除按鈕。
 - **所有檔案放在同一個資料夾**（預設 `內部儲存空間/UniversalDownloader`，可在「設定」變更）。檔名為 `<平台>_<yyyyMMdd_HHmmss>.<副檔名>`，例如 `threads_20261124_153012.mp4`；多個項目的貼文會加上 `_1`、`_2`…。
@@ -77,6 +82,8 @@ app/src/main/java/io/github/kevin77688/uvd/
 │   ├── threads/
 │   ├── youtube/        # 透過 NewPipeExtractor
 │   ├── bilibili/
+│   ├── instagram/
+│   ├── facebook/
 │   └── newpipe/        # NewPipeExtractor 的橋接（HTTP 與錯誤對應）
 ├── download/           # 前景服務、下載流程、分段下載器、MP4 合併
 ├── storage/            # SAF 下載資料夾、檔名規則
@@ -109,7 +116,7 @@ scripts/release.sh 2.1.0 --push        # 正式版
 
 本專案僅供個人使用，請只下載你有權下載的內容。請尊重著作權與各平台的服務條款 —
 部分平台（例如 YouTube）的條款不允許下載。
-本 App 與 Meta、Threads、Google、YouTube、Bilibili 無任何關聯，也未獲其認可。所有商標皆屬於其擁有者。
+本 App 與 Meta、Threads、Instagram、Facebook、Google、YouTube、Bilibili 無任何關聯，也未獲其認可。所有商標皆屬於其擁有者。
 
 ## 致謝
 

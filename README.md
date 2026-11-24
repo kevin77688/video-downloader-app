@@ -20,6 +20,11 @@ Share a link to it from any app (or paste one) and the media lands in one folder
 | Threads | `threads.com` / `threads.net` posts and share links — images, videos, carousels | ✅ |
 | YouTube | videos, Shorts, `youtu.be`, `music.youtube.com` links — best H.264 video + original audio, merged into one MP4 | ✅ |
 | Bilibili | `bilibili.com/video/…` (incl. multi-part `?p=`), `b23.tv` short links — video + audio merged into one MP4 | ✅ (480p observed without login) |
+| Instagram | posts (`/p/`), reels, carousels — original-size images, videos (720p observed) | ✅ ¹ |
+| Facebook | videos (`/videos/…`, `/watch/?v=`), reels — 720p observed; photo posts are not supported | ✅ ¹ |
+
+¹ Links from the apps' share buttons (`instagram.com/share/…`, `fb.watch/…`, `facebook.com/share/v|r/…`) are
+accepted and followed, but haven't been verified on a device yet.
 
 Not supported: live streams, age-restricted, private, paid or region-locked content (they need a login).
 
@@ -27,7 +32,7 @@ New platforms are added as separate *extractors* — see [Adding a platform](#ad
 
 ## Features
 
-- **Share sheet:** tap *Share* in Threads / YouTube / Bilibili / a browser and pick *Universal Video Downloader*. The download runs in the background with a notification; the app doesn't even open.
+- **Share sheet:** tap *Share* in Threads / YouTube / Bilibili / Instagram / Facebook / a browser and pick *Universal Video Downloader*. The download runs in the background with a notification; the app doesn't even open.
 - **Clipboard detection:** copy a link, open the app, and it is filled in automatically.
 - **Gallery** with a filter per platform, sorting (newest, oldest, grouped by platform), and a delete button on every item.
 - **One folder for everything** (default `Internal storage/UniversalDownloader`, changeable in Settings). Files are named `<platform>_<yyyyMMdd_HHmmss>.<ext>`, e.g. `threads_20261124_153012.mp4`; multi-item posts add `_1`, `_2`, ….
@@ -77,6 +82,8 @@ app/src/main/java/io/github/kevin77688/uvd/
 │   ├── threads/
 │   ├── youtube/        # via NewPipeExtractor
 │   ├── bilibili/
+│   ├── instagram/
+│   ├── facebook/
 │   └── newpipe/        # bridge to NewPipeExtractor (HTTP + error mapping)
 ├── download/           # foreground service, job pipeline, segmented downloader, MP4 merger
 ├── storage/            # SAF download folder, file naming
@@ -109,7 +116,7 @@ certificate and publishes a GitHub Release with the APK and its SHA-256 checksum
 
 This project is for personal use with content you have the right to download. Respect copyright and each
 platform's terms of service — some platforms (e.g. YouTube) do not allow downloading in their terms.
-This app is not affiliated with, endorsed by, or connected to Meta, Threads, Google, YouTube or Bilibili.
+This app is not affiliated with, endorsed by, or connected to Meta, Threads, Instagram, Facebook, Google, YouTube or Bilibili.
 All trademarks belong to their owners.
 
 ## Credits

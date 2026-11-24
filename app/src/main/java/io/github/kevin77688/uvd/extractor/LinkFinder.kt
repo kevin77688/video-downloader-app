@@ -34,6 +34,10 @@ object LinkFinder {
         return domain.any { h == it || h.endsWith(".$it") }
     }
 
+    /** Path of [url] starting with "/" (no query or fragment); "/" when there is none. */
+    fun path(url: String): String =
+        "/" + url.substringAfter("://").substringAfter('/', "").substringBefore('?').substringBefore('#')
+
     /** Value of query parameter [name] in [url], or null. */
     fun queryParam(url: String, name: String): String? =
         url.substringAfter('?', "").substringBefore('#').split('&')

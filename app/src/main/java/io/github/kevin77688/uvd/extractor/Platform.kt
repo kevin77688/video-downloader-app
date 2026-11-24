@@ -8,6 +8,8 @@ enum class Platform(val id: String, val displayName: String, val brandColor: Lon
     THREADS("threads", "Threads", 0xFF6E6E6E),
     YOUTUBE("youtube", "YouTube", 0xFFE62117),
     BILIBILI("bilibili", "Bilibili", 0xFF00A1D6),
+    INSTAGRAM("instagram", "Instagram", 0xFFE1306C),
+    FACEBOOK("facebook", "Facebook", 0xFF1877F2),
     ;
 
     companion object {

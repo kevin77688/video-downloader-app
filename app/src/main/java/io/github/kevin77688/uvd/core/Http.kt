@@ -47,6 +47,33 @@ object Http {
         }
     }
 
+    /** Request headers of a top-level page load in a desktop browser (some sites only embed data then). */
+    val BROWSER_NAVIGATION = mapOf(
+        "Accept" to "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language" to "en-US,en;q=0.9",
+        "Sec-Fetch-Mode" to "navigate",
+        "Sec-Fetch-Dest" to "document",
+        "Sec-Fetch-Site" to "none",
+        "Sec-Fetch-User" to "?1",
+        "Upgrade-Insecure-Requests" to "1",
+    )
+
+    /** A fetched page: the URL it ended at after redirects, and its body. */
+    class Page(val url: String, val body: String)
+
+    /** GETs [url] following redirects; throws [HttpStatusException] unless the final answer is 200. */
+    fun getPage(url: String, headers: Map<String, String> = emptyMap(), userAgent: String = BROWSER_UA): Page {
+        val conn = open(url, headers, userAgent)
+        try {
+            val status = conn.responseCode
+            if (status != 200) throw HttpStatusException(status)
+            val body = conn.inputStream.bufferedReader().use { it.readText() }
+            return Page(conn.url.toString(), body)
+        } finally {
+            conn.disconnect()
+        }
+    }
+
     /**
      * Follows redirects one hop at a time until [done] accepts a URL (or a non-redirect answer
      * arrives) and returns that URL. Used to expand share/short links without downloading pages.

@@ -79,6 +79,7 @@
     <string name="err_live">Live streams can\'t be downloaded.</string>
     <string name="err_merge">Couldn\'t combine the video and audio tracks.</string>
     <string name="err_short_link">Couldn\'t open this share link.</string>
+    <string name="err_post_unreadable">Couldn\'t read this %1$s post. It may be private, deleted, or %1$s changed its page.</string>
     <string name="err_threads_unreadable">Couldn\'t read this post. It may be private, deleted, or Threads changed its page.</string>
 
     <!-- Gallery -->
