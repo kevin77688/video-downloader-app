@@ -29,10 +29,16 @@ object Thumbs {
             if (sample > 1) decoder.setTargetSampleSize(sample)
         }
 
+    /** Many videos fade in from black, so use the first key frame after ~1 s (or mid-way for short clips). */
+    private const val PREVIEW_AT_US = 1_000_000L
+
     private fun videoFrame(context: Context, uri: Uri, sizePx: Int): Bitmap? =
         MediaMetadataRetriever().use { r ->
             r.setDataSource(context, uri)
-            r.getScaledFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC, sizePx, sizePx)
+            val durationUs = (r.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLongOrNull() ?: 0L) * 1000
+            val atUs = minOf(PREVIEW_AT_US, durationUs / 2)
+            (if (atUs > 0) r.getScaledFrameAtTime(atUs, MediaMetadataRetriever.OPTION_NEXT_SYNC, sizePx, sizePx) else null)
+                ?: r.getScaledFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC, sizePx, sizePx)
                 ?: r.frameAtTime
         }
 }

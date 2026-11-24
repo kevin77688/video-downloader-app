@@ -6,6 +6,9 @@ versions: [SemVer](https://semver.org). Add entries under **Unreleased** as you 
 
 ## [Unreleased]
 
+### Fixed
+- Video thumbnails in the gallery no longer show up black for videos that fade in from black.
+
 ### Changed
 - Renamed to **Universal Video Downloader** with a new app id `io.github.kevin77688.uvd`
   (installs alongside the old "Threads Downloader"; pick the download folder again on first run).
