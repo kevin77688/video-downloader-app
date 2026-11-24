@@ -1,3 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Threads Downloader</string>
+    <string name="app_name" translatable="false">Universal Video Downloader</string>
+
+    <!-- Navigation -->
+    <string name="tab_download">Download</string>
+    <string name="tab_gallery">Gallery</string>
+    <string name="tab_settings">Settings</string>
+
+    <!-- Download screen -->
+    <string name="link_label">Link</string>
+    <string name="link_placeholder">Paste a link to a post or video</string>
+    <string name="link_detected">%1$s link</string>
+    <string name="action_paste">Paste from Clipboard</string>
+    <string name="action_download">Download</string>
+    <string name="action_clear">Clear</string>
+    <string name="folder_none">No download folder yet</string>
+
+    <!-- Common actions -->
+    <string name="action_choose">Choose</string>
+    <string name="action_choose_folder">Choose folder</string>
+    <string name="action_change">Change</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+
+    <!-- Folder dialog -->
+    <string name="folder_dialog_title">Choose download folder</string>
+    <string name="folder_dialog_body">Images and videos from every platform are saved together in one folder.\n\nRecommended: on the next screen create a folder named \"%1$s\" in Internal storage, open it, then tap \"Use this folder\" and \"Allow\".</string>
+    <string name="internal_storage">Internal storage</string>
+
+    <!-- Snackbar / toast messages -->
+    <string name="msg_saving_to">Saving to %1$s</string>
+    <string name="msg_folder_denied">Couldn\'t get access to that folder</string>
+    <string name="msg_folder_required">A download folder is required</string>
+    <string name="msg_paste_first">Paste a link first</string>
+    <string name="msg_unsupported_link">This link isn\'t from a supported platform</string>
+    <string name="msg_clipboard_empty">Clipboard is empty</string>
+    <string name="msg_clipboard_no_link">No supported link in clipboard</string>
+    <string name="msg_no_viewer">No app can open this file</string>
+    <string name="msg_delete_failed">Couldn\'t delete file</string>
+    <string name="toast_no_supported_link">No supported link found</string>
+    <string name="toast_downloading">Downloading from %1$s…</string>
+
+    <!-- Download progress -->
+    <string name="status_preparing">Preparing download…</string>
+    <string name="status_fetching">Reading %1$s link…</string>
+    <string name="status_downloading_image">Downloading image</string>
+    <string name="status_downloading_video">Downloading video</string>
+    <string name="status_downloading_audio">Downloading audio</string>
+    <string name="status_merging">Merging video and audio…</string>
+    <string name="status_saving">Saving %1$s</string>
+    <plurals name="saved_files">
+        <item quantity="one">Saved %1$d file</item>
+        <item quantity="other">Saved %1$d files</item>
+    </plurals>
+
+    <!-- Notifications -->
+    <string name="channel_progress">Download progress</string>
+    <string name="channel_result">Download results</string>
+    <string name="notif_preparing">Downloading</string>
+    <string name="notif_downloading_from">Downloading from %1$s</string>
+    <string name="notif_complete">Download complete</string>
+    <string name="notif_failed">Download failed</string>
+
+    <!-- Errors -->
+    <string name="err_http">Server returned HTTP %1$d</string>
+    <string name="err_offline">No internet connection</string>
+    <string name="err_timeout">The server took too long to respond. Try again.</string>
+    <string name="err_no_folder">Please choose a download folder first.</string>
+    <string name="err_folder_write">Can\'t write to the download folder. Please choose it again in Settings.</string>
+    <string name="err_no_media">Nothing to download: this post has no images or videos.</string>
+    <string name="err_unsupported_link">This link isn\'t from a supported platform.</string>
+    <string name="err_unsupported_format">This media format isn\'t supported yet.</string>
+    <string name="err_short_link">Couldn\'t open this share link.</string>
+    <string name="err_threads_unreadable">Couldn\'t read this post. It may be private, deleted, or Threads changed its page.</string>
+
+    <!-- Gallery -->
+    <plurals name="gallery_items">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+    <string name="gallery_empty">Nothing downloaded yet</string>
+    <string name="filter_all_count">All %1$d</string>
+    <string name="filter_other">Other</string>
+    <string name="filter_other_count">Other %1$d</string>
+    <string name="sort">Sort</string>
+    <string name="sort_newest">Newest first</string>
+    <string name="sort_oldest">Oldest first</string>
+    <string name="sort_platform">Group by platform</string>
+    <string name="delete_title">Delete file?</string>
+    <string name="video">Video</string>
+
+    <!-- Settings -->
+    <string name="settings_appearance">Appearance</string>
+    <string name="theme_system">Follow system</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_download">Download</string>
+    <string name="settings_folder">Download folder</string>
+    <string name="settings_folder_not_set">Not set</string>
+    <string name="settings_threads">Download threads</string>
+    <string name="settings_threads_help">Each file is split into parts downloaded in parallel. Failed parts resume and retry automatically. Lower this if downloads become unstable.</string>
+    <string name="settings_file_name">File name</string>
+    <string name="settings_file_name_help">Platform + download time, e.g. youtube_20261124_153012.mp4\nPosts with several items add _1, _2, …</string>
+    <string name="settings_about">About</string>
+    <string name="settings_version">Version %1$s · public content only</string>
+    <string name="settings_supported">Supported: %1$s</string>
 </resources>

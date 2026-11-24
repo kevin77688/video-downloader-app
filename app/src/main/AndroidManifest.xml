@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ThreadsDL">
+        android:theme="@style/Theme.UVD">
 
         <activity
             android:name=".MainActivity"
@@ -35,7 +35,7 @@
             android:label="@string/app_name"
             android:noHistory="true"
             android:taskAffinity=""
-            android:theme="@style/Theme.ThreadsDL.Transparent">
+            android:theme="@style/Theme.UVD.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -44,7 +44,7 @@
         </activity>
 
         <service
-            android:name=".DownloadService"
+            android:name=".download.DownloadService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
     </application>

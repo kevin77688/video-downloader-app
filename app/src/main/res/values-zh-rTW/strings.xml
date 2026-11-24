@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navigation -->
+    <string name="tab_download">下載</string>
+    <string name="tab_gallery">圖庫</string>
+    <string name="tab_settings">設定</string>
+
+    <!-- Download screen -->
+    <string name="link_label">連結</string>
+    <string name="link_placeholder">貼上貼文或影片的連結</string>
+    <string name="link_detected">%1$s 連結</string>
+    <string name="action_paste">從剪貼簿貼上</string>
+    <string name="action_download">下載</string>
+    <string name="action_clear">清除</string>
+    <string name="folder_none">尚未選擇下載資料夾</string>
+
+    <!-- Common actions -->
+    <string name="action_choose">選擇</string>
+    <string name="action_choose_folder">選擇資料夾</string>
+    <string name="action_change">變更</string>
+    <string name="action_continue">繼續</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_delete">刪除</string>
+
+    <!-- Folder dialog -->
+    <string name="folder_dialog_title">選擇下載資料夾</string>
+    <string name="folder_dialog_body">所有平台的圖片與影片都會存在同一個資料夾。\n\n建議：在下一個畫面於「內部儲存空間」建立名為「%1$s」的資料夾並開啟它，再點「使用此資料夾」和「允許」。</string>
+    <string name="internal_storage">內部儲存空間</string>
+
+    <!-- Snackbar / toast messages -->
+    <string name="msg_saving_to">將儲存到 %1$s</string>
+    <string name="msg_folder_denied">無法取得該資料夾的存取權</string>
+    <string name="msg_folder_required">需要先選擇下載資料夾</string>
+    <string name="msg_paste_first">請先貼上連結</string>
+    <string name="msg_unsupported_link">這個連結不屬於支援的平台</string>
+    <string name="msg_clipboard_empty">剪貼簿是空的</string>
+    <string name="msg_clipboard_no_link">剪貼簿中沒有支援的連結</string>
+    <string name="msg_no_viewer">沒有可開啟此檔案的 App</string>
+    <string name="msg_delete_failed">無法刪除檔案</string>
+    <string name="toast_no_supported_link">找不到支援的連結</string>
+    <string name="toast_downloading">正在從 %1$s 下載…</string>
+
+    <!-- Download progress -->
+    <string name="status_preparing">準備下載中…</string>
+    <string name="status_fetching">正在讀取 %1$s 連結…</string>
+    <string name="status_downloading_image">下載圖片</string>
+    <string name="status_downloading_video">下載影片</string>
+    <string name="status_downloading_audio">下載音訊</string>
+    <string name="status_merging">正在合併影片與音訊…</string>
+    <string name="status_saving">儲存 %1$s</string>
+    <plurals name="saved_files">
+        <item quantity="other">已儲存 %1$d 個檔案</item>
+    </plurals>
+
+    <!-- Notifications -->
+    <string name="channel_progress">下載進度</string>
+    <string name="channel_result">下載結果</string>
+    <string name="notif_preparing">下載中</string>
+    <string name="notif_downloading_from">正在從 %1$s 下載</string>
+    <string name="notif_complete">下載完成</string>
+    <string name="notif_failed">下載失敗</string>
+
+    <!-- Errors -->
+    <string name="err_http">伺服器回應 HTTP %1$d</string>
+    <string name="err_offline">沒有網路連線</string>
+    <string name="err_timeout">伺服器回應逾時，請再試一次。</string>
+    <string name="err_no_folder">請先選擇下載資料夾。</string>
+    <string name="err_folder_write">無法寫入下載資料夾，請到「設定」重新選擇。</string>
+    <string name="err_no_media">沒有可下載的內容：此貼文沒有圖片或影片。</string>
+    <string name="err_unsupported_link">這個連結不屬於支援的平台。</string>
+    <string name="err_unsupported_format">目前還不支援這種媒體格式。</string>
+    <string name="err_short_link">無法開啟這個分享連結。</string>
+    <string name="err_threads_unreadable">無法讀取這則貼文。可能是私人、已刪除，或 Threads 改版了。</string>
+
+    <!-- Gallery -->
+    <plurals name="gallery_items">
+        <item quantity="other">%1$d 個項目</item>
+    </plurals>
+    <string name="gallery_empty">還沒有下載任何檔案</string>
+    <string name="filter_all_count">全部 %1$d</string>
+    <string name="filter_other">其他</string>
+    <string name="filter_other_count">其他 %1$d</string>
+    <string name="sort">排序</string>
+    <string name="sort_newest">最新優先</string>
+    <string name="sort_oldest">最舊優先</string>
+    <string name="sort_platform">依平台分組</string>
+    <string name="delete_title">要刪除檔案嗎？</string>
+    <string name="video">影片</string>
+
+    <!-- Settings -->
+    <string name="settings_appearance">外觀</string>
+    <string name="theme_system">跟隨系統</string>
+    <string name="theme_light">淺色</string>
+    <string name="theme_dark">深色</string>
+    <string name="settings_download">下載</string>
+    <string name="settings_folder">下載資料夾</string>
+    <string name="settings_folder_not_set">尚未設定</string>
+    <string name="settings_threads">下載執行緒</string>
+    <string name="settings_threads_help">每個檔案會切成多段同時下載，失敗的分段會自動續傳重試。下載不穩定時請調低。</string>
+    <string name="settings_file_name">檔名</string>
+    <string name="settings_file_name_help">平台＋下載時間，例如 youtube_20261124_153012.mp4\n多個項目的貼文會加上 _1、_2…</string>
+    <string name="settings_about">關於</string>
+    <string name="settings_version">版本 %1$s · 僅限公開內容</string>
+    <string name="settings_supported">支援平台：%1$s</string>
+</resources>

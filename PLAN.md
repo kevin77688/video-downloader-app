@@ -1,6 +1,41 @@
-# Threads Downloader — 開發計畫
+# Universal Video Downloader — 開發計畫
 
-> 狀態：v1.0.0 已完成並在 S23 實機驗證（2026-11-20）
+> 狀態：
+> - v1.0.0（Threads Downloader，`dev.threadsdl.app`）已完成並在實機驗證（2026-11-20）
+> - v2（Universal Video Downloader，`io.github.kevin77688.uvd`）：公開 repo、重構為多平台架構、加入 YouTube / Bilibili 等平台（進行中，2026-11-24）
+
+## v2 規劃：多平台
+### 已確認決策（2026-11-24）
+| 項目 | 決定 |
+|---|---|
+| App 名稱 | Universal Video Downloader |
+| applicationId / namespace | `io.github.kevin77688.uvd`（新 id，與舊版並存；簽章金鑰不變） |
+| 授權 | GPL-3.0（因為使用 NewPipeExtractor） |
+| YouTube | NewPipeExtractor（JitPack，社群維護；minSdk < 33 需 core library desugaring） |
+| Bilibili 及其他平台 | 純 Kotlin extractor（`HttpURLConnection` + `org.json`） |
+| 檔名 | `<platform>_<yyyyMMdd_HHmmss>[_n].<ext>`；平台前綴供圖庫篩選；無前綴舊檔視為 Threads |
+| 預設資料夾 | `內部儲存空間/UniversalDownloader`，所有平台同一資料夾 |
+| 圖庫 | 依平台篩選（含數量）、排序：最新／最舊／依平台分組 |
+| 版本與發布 | `appVersion`（gradle.properties）＋ `scripts/release.sh` 建 tag，推 tag 觸發 GitHub Actions 簽章發布 |
+
+### 架構（v2 重構後）
+- `extractor/`：`Extractor` 介面（`accept()` 離線辨識、`extract()` 回傳 `MediaItem` 清單）、`Extractors` 註冊表、`LinkFinder`
+- `MediaItem` 可帶 `headers`（如 Referer）與分離的 `audio` 串流（DASH，需合併）
+- `download/`：`DownloadService` → `DownloadJob` → `SegmentedDownloader`（→ 合併影音）→ SAF
+- `storage/`：`MediaFolder`（SAF）、`FileNames`（命名與平台判斷）
+
+### 待辦
+- [x] 公開前安全檢查、git 身分、gitignore、文件清理
+- [x] 重構：套件更名、extractor 架構、字串資源（英文＋繁中）、單元測試
+- [x] 圖庫平台篩選與排序
+- [x] README（英／繁中）、LICENSE、Dependabot、CI、tag 觸發的 Release workflow
+- [ ] YouTube extractor（NewPipeExtractor）＋影音合併（MediaMuxer）
+- [ ] Bilibili extractor（b23.tv 短網址、DASH 影音分離）
+- [ ] 嘗試更多平台（X/Twitter、Reddit、Instagram、TikTok…），實機驗證可用者才加入
+
+---
+
+# v1 紀錄（Threads Downloader）
 
 ## 目標功能
 1. **剪貼簿自動偵測**：App 開啟、或從背景切回前景時，偵測剪貼簿最新內容；若是新的 Threads 連結就自動填入輸入框。
@@ -76,7 +111,7 @@
 - 不使用 `MANAGE_EXTERNAL_STORAGE`（權限過大）
 - 圖庫頁以 `DocumentsContract` 列出該資料夾內容
 
-## Phase 1 Spike 結果（2026-11-20，已驗證）
+## Threads spike 結果（2026-11-20，已驗證）
 純 HTTP 即可，**不需要 WebView**。流程：
 1. **解析 share 短網址** `https://www.threads.com/share/<id>`：以**非瀏覽器 UA**（如 `curl/8`）請求、不跟隨轉址 → `302 Location: https://www.threads.com/@<user>/post/<code>?xmt=...`
    （瀏覽器 UA 會拿到 200 的 JS 空殼，沒有資料）

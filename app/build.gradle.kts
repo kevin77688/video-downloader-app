@@ -5,44 +5,69 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-// Single shared signing key for every build type (see CLAUDE.md). Never regenerate it.
+// ---------------------------------------------------------------------------------------------
+// Version — single source of truth is `appVersion` in gradle.properties (see CLAUDE.md
+// "Versioning & tags"). Release tags must be exactly "v$appVersion"; CI enforces this.
+// versionCode is derived so it always increases: 1.2.3-rc.4 → 1_02_03_04, 1.2.3 → 1_02_03_99.
+// ---------------------------------------------------------------------------------------------
+val appVersion: String = providers.gradleProperty("appVersion").get()
+val appVersionCode: Int = run {
+    val m = Regex("""(\d+)\.(\d+)\.(\d+)(?:-rc\.(\d+))?""").matchEntire(appVersion)
+        ?: error("appVersion '$appVersion' must look like 1.2.3 or 1.2.3-rc.1")
+    val (major, minor, patch) = m.groupValues.drop(1).take(3).map { it.toInt() }
+    val rc = m.groupValues[4].toIntOrNull()
+    require(minor < 100 && patch < 100 && (rc == null || rc in 1..98)) {
+        "appVersion '$appVersion': minor/patch must be < 100 and rc in 1..98"
+    }
+    major * 1_000_000 + minor * 10_000 + patch * 100 + (rc ?: 99)
+}
+
+// ---------------------------------------------------------------------------------------------
+// Signing — one shared key for every build type (see CLAUDE.md). Never regenerate it.
+// The key is optional so forks, PRs and Dependabot builds still work: without it, debug builds
+// use the default debug key and release builds are unsigned.
+// ---------------------------------------------------------------------------------------------
 val keystoreProps = Properties().apply {
     val f = rootProject.file("keystore.properties")
     if (f.exists()) f.inputStream().use { load(it) }
 }
+val sharedKeyFile = rootProject.file(keystoreProps.getProperty("storeFile") ?: "keystore/threads-downloader.jks")
+val hasSharedKey = sharedKeyFile.exists() && keystoreProps.getProperty("storePassword") != null
 
 android {
-    namespace = "dev.threadsdl.app"
+    namespace = "io.github.kevin77688.uvd"
     compileSdk {
         version = release(37) { minorApiLevel = 2 }
     }
 
     defaultConfig {
-        applicationId = "dev.threadsdl.app"
+        applicationId = "io.github.kevin77688.uvd"
         minSdk = 29
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = appVersionCode
+        versionName = appVersion
     }
 
     signingConfigs {
-        create("shared") {
-            storeFile = rootProject.file(keystoreProps.getProperty("storeFile") ?: "keystore/threads-downloader.jks")
-            storePassword = keystoreProps.getProperty("storePassword")
-            keyAlias = keystoreProps.getProperty("keyAlias")
-            keyPassword = keystoreProps.getProperty("keyPassword")
+        if (hasSharedKey) {
+            create("shared") {
+                storeFile = sharedKeyFile
+                storePassword = keystoreProps.getProperty("storePassword")
+                keyAlias = keystoreProps.getProperty("keyAlias")
+                keyPassword = keystoreProps.getProperty("keyPassword")
+            }
         }
     }
 
     buildTypes {
         debug {
-            signingConfig = signingConfigs.getByName("shared")
+            if (hasSharedKey) signingConfig = signingConfigs.getByName("shared")
         }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("shared")
+            signingConfig = if (hasSharedKey) signingConfigs.getByName("shared") else null
         }
     }
 
@@ -82,4 +107,6 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.activity:activity-compose:1.13.0")
+
+    testImplementation("junit:junit:4.13.2")
 }
