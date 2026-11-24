@@ -13,6 +13,12 @@ versions: [SemVer](https://semver.org). Add entries under **Unreleased** as you 
 - File names start with the platform: `threads_20261124_153012.jpg`. Old un-prefixed files are still recognized as Threads.
 
 ### Added
+- **YouTube** support (videos, Shorts, youtu.be, YouTube Music links): best H.264 video plus original audio, merged into one MP4.
+- **Bilibili** support (bilibili.com videos incl. multi-part `?p=`, b23.tv short links): video plus audio merged into one MP4.
+- Faster downloads: files are split into small parts shared by all connections (no idle connections near the end),
+  video and audio download at the same time, and multi-item posts download several items at once.
+  Default connections raised from 4 to 8.
+- A delete button on every gallery item (long-press still works too).
 - Gallery filter per platform (with counts), sorting by newest / oldest / platform, and a platform badge on each item.
 - Traditional Chinese (繁體中文) UI.
 - The download screen shows which platform a pasted link belongs to.

@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -159,7 +160,7 @@ fun GalleryScreen(folder: Uri?, onChooseFolder: () -> Unit) {
                                 Toast.makeText(context, R.string.msg_no_viewer, Toast.LENGTH_SHORT).show()
                             }
                         },
-                        onLongPress = { toDelete = it },
+                        onDelete = { toDelete = it },
                     )
                 }
             }
@@ -170,7 +171,7 @@ fun GalleryScreen(folder: Uri?, onChooseFolder: () -> Unit) {
         AlertDialog(
             onDismissRequest = { toDelete = null },
             title = { Text(stringResource(R.string.delete_title)) },
-            text = { Text(entry.name) },
+            text = { Text(stringResource(R.string.delete_body, entry.name)) },
             confirmButton = {
                 TextButton(onClick = {
                     runCatching { MediaFolder.delete(context, entry.uri) }
@@ -232,7 +233,7 @@ private fun MediaGrid(
     sort: GallerySort,
     showBadges: Boolean,
     onOpen: (MediaFolder.Entry) -> Unit,
-    onLongPress: (MediaFolder.Entry) -> Unit,
+    onDelete: (MediaFolder.Entry) -> Unit,
 ) {
     // MediaFolder.list() is already newest-first.
     val sections: List<Pair<Platform?, List<MediaFolder.Entry>>> = remember(entries, sort) {
@@ -265,14 +266,14 @@ private fun MediaGrid(
                 }
             }
             items(list, key = { it.uri.toString() }) { entry ->
-                Thumbnail(entry, showBadge = showBadges && !grouped, onClick = { onOpen(entry) }, onLongClick = { onLongPress(entry) })
+                Thumbnail(entry, showBadge = showBadges && !grouped, onClick = { onOpen(entry) }, onDelete = { onDelete(entry) })
             }
         }
     }
 }
 
 @Composable
-private fun Thumbnail(entry: MediaFolder.Entry, showBadge: Boolean, onClick: () -> Unit, onLongClick: () -> Unit) {
+private fun Thumbnail(entry: MediaFolder.Entry, showBadge: Boolean, onClick: () -> Unit, onDelete: () -> Unit) {
     val context = LocalContext.current
     val bitmap by produceState<ImageBitmap?>(null, entry.uri) {
         value = if (entry.isAudio) {
@@ -286,7 +287,7 @@ private fun Thumbnail(entry: MediaFolder.Entry, showBadge: Boolean, onClick: () 
             .aspectRatio(1f)
             .clip(RoundedCornerShape(10.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .combinedClickable(onClick = onClick, onLongClick = onLongClick),
+            .combinedClickable(onClick = onClick, onLongClick = onDelete),
     ) {
         bitmap?.let {
             Image(it, contentDescription = entry.name, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
@@ -309,6 +310,24 @@ private fun Thumbnail(entry: MediaFolder.Entry, showBadge: Boolean, onClick: () 
                     .size(36.dp)
                     .background(Color.Black.copy(alpha = 0.45f), CircleShape)
                     .padding(6.dp),
+            )
+        }
+        // Small delete button (long-press does the same); both ask for confirmation first.
+        Box(
+            Modifier
+                .align(Alignment.TopEnd)
+                .padding(4.dp)
+                .size(28.dp)
+                .clip(CircleShape)
+                .background(Color.Black.copy(alpha = 0.45f))
+                .clickable(onClick = onDelete),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                painterResource(R.drawable.ic_delete),
+                contentDescription = stringResource(R.string.action_delete),
+                tint = Color.White,
+                modifier = Modifier.size(16.dp),
             )
         }
         if (showBadge) {

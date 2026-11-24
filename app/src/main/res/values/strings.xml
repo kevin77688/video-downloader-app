@@ -48,6 +48,7 @@
     <string name="status_downloading_image">Downloading image</string>
     <string name="status_downloading_video">Downloading video</string>
     <string name="status_downloading_audio">Downloading audio</string>
+    <string name="status_items_done">%1$d/%2$d done</string>
     <string name="status_merging">Merging video and audio…</string>
     <string name="status_saving">Saving %1$s</string>
     <plurals name="saved_files">
@@ -71,7 +72,12 @@
     <string name="err_folder_write">Can\'t write to the download folder. Please choose it again in Settings.</string>
     <string name="err_no_media">Nothing to download: this post has no images or videos.</string>
     <string name="err_unsupported_link">This link isn\'t from a supported platform.</string>
-    <string name="err_unsupported_format">This media format isn\'t supported yet.</string>
+    <string name="err_unavailable">This content is unavailable — it may be private, deleted, paid or blocked in your region.</string>
+    <string name="err_age_restricted">Age-restricted content needs a login, which this app doesn\'t support.</string>
+    <string name="err_rate_limited">%1$s is limiting requests right now. Try again later.</string>
+    <string name="err_extract_failed">Couldn\'t read this %1$s link. The site may have changed — try updating the app.</string>
+    <string name="err_live">Live streams can\'t be downloaded.</string>
+    <string name="err_merge">Couldn\'t combine the video and audio tracks.</string>
     <string name="err_short_link">Couldn\'t open this share link.</string>
     <string name="err_threads_unreadable">Couldn\'t read this post. It may be private, deleted, or Threads changed its page.</string>
 
@@ -89,6 +95,7 @@
     <string name="sort_oldest">Oldest first</string>
     <string name="sort_platform">Group by platform</string>
     <string name="delete_title">Delete file?</string>
+    <string name="delete_body">%1$s\n\nThe file will be removed from your phone.</string>
     <string name="video">Video</string>
 
     <!-- Settings -->
@@ -99,8 +106,8 @@
     <string name="settings_download">Download</string>
     <string name="settings_folder">Download folder</string>
     <string name="settings_folder_not_set">Not set</string>
-    <string name="settings_threads">Download threads</string>
-    <string name="settings_threads_help">Each file is split into parts downloaded in parallel. Failed parts resume and retry automatically. Lower this if downloads become unstable.</string>
+    <string name="settings_threads">Connections</string>
+    <string name="settings_threads_help">Files are split into small parts downloaded over several connections at once; video, audio and every item of a post download in parallel and share these connections. Failed parts resume and retry automatically. Lower this if downloads become unstable.</string>
     <string name="settings_file_name">File name</string>
     <string name="settings_file_name_help">Platform + download time, e.g. youtube_20261124_153012.mp4\nPosts with several items add _1, _2, …</string>
     <string name="settings_about">About</string>

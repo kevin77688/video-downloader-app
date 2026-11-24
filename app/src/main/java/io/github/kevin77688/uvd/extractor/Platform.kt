@@ -6,6 +6,8 @@ package io.github.kevin77688.uvd.extractor
  */
 enum class Platform(val id: String, val displayName: String, val brandColor: Long) {
     THREADS("threads", "Threads", 0xFF6E6E6E),
+    YOUTUBE("youtube", "YouTube", 0xFFE62117),
+    BILIBILI("bilibili", "Bilibili", 0xFF00A1D6),
     ;
 
     companion object {

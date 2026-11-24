@@ -10,16 +10,18 @@ A small Android app that saves videos and images from **public** posts on severa
 Share a link to it from any app (or paste one) and the media lands in one folder on your phone.
 
 - **No account, no login, no ads, no tracking.** Only public content is supported.
-- **Tiny:** about 2–3 MB. Kotlin + Jetpack Compose, no heavy libraries.
-- **Reliable downloads:** files are split into parts downloaded in parallel; failed parts resume and retry automatically, and the final size is verified.
+- **Small:** about 4 MB. Kotlin + Jetpack Compose, no heavy libraries.
+- **Fast, reliable downloads:** files are split into small parts downloaded over several connections at once; video, audio and every item of a post download in parallel; failed parts resume and retry automatically, and the final size is verified.
 
 ## Supported platforms
 
 | Platform | Links | Status |
 |---|---|---|
 | Threads | `threads.com` / `threads.net` posts and share links — images, videos, carousels | ✅ |
-| YouTube | videos, Shorts, `youtu.be` links | 🚧 in progress |
-| Bilibili | `bilibili.com/video/…`, `b23.tv` short links | 🚧 in progress |
+| YouTube | videos, Shorts, `youtu.be`, `music.youtube.com` links — best H.264 video + original audio, merged into one MP4 | ✅ |
+| Bilibili | `bilibili.com/video/…` (incl. multi-part `?p=`), `b23.tv` short links — video + audio merged into one MP4 | ✅ (480p observed without login) |
+
+Not supported: live streams, age-restricted, private, paid or region-locked content (they need a login).
 
 New platforms are added as separate *extractors* — see [Adding a platform](#adding-a-platform).
 
@@ -27,7 +29,7 @@ New platforms are added as separate *extractors* — see [Adding a platform](#ad
 
 - **Share sheet:** tap *Share* in Threads / YouTube / Bilibili / a browser and pick *Universal Video Downloader*. The download runs in the background with a notification; the app doesn't even open.
 - **Clipboard detection:** copy a link, open the app, and it is filled in automatically.
-- **Gallery** with a filter per platform, sorting (newest, oldest, grouped by platform), and long-press to delete.
+- **Gallery** with a filter per platform, sorting (newest, oldest, grouped by platform), and a delete button on every item.
 - **One folder for everything** (default `Internal storage/UniversalDownloader`, changeable in Settings). Files are named `<platform>_<yyyyMMdd_HHmmss>.<ext>`, e.g. `threads_20261124_153012.mp4`; multi-item posts add `_1`, `_2`, ….
 - Light / dark / system theme, Material You colors, English and 繁體中文 UI.
 
@@ -71,8 +73,11 @@ app/src/main/java/io/github/kevin77688/uvd/
 │   ├── Extractor.kt    # interface + MediaItem / Extraction models
 │   ├── Extractors.kt   # registry of all extractors
 │   ├── LinkFinder.kt   # finds URLs inside share text
-│   └── threads/
-├── download/           # foreground service, job pipeline, segmented downloader
+│   ├── threads/
+│   ├── youtube/        # via NewPipeExtractor
+│   ├── bilibili/
+│   └── newpipe/        # bridge to NewPipeExtractor (HTTP + error mapping)
+├── download/           # foreground service, job pipeline, segmented downloader, MP4 merger
 ├── storage/            # SAF download folder, file naming
 ├── settings/           # preferences
 ├── core/               # HTTP helpers, user-facing errors
@@ -105,6 +110,10 @@ This project is for personal use with content you have the right to download. Re
 platform's terms of service — some platforms (e.g. YouTube) do not allow downloading in their terms.
 This app is not affiliated with, endorsed by, or connected to Meta, Threads, Google, YouTube or Bilibili.
 All trademarks belong to their owners.
+
+## Credits
+
+YouTube support uses [NewPipeExtractor](https://github.com/TeamNewPipe/NewPipeExtractor) (GPL-3.0) by the NewPipe team.
 
 ## License
 

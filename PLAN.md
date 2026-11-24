@@ -29,9 +29,14 @@
 - [x] 重構：套件更名、extractor 架構、字串資源（英文＋繁中）、單元測試
 - [x] 圖庫平台篩選與排序
 - [x] README（英／繁中）、LICENSE、Dependabot、CI、tag 觸發的 Release workflow
-- [ ] YouTube extractor（NewPipeExtractor）＋影音合併（MediaMuxer）
-- [ ] Bilibili extractor（b23.tv 短網址、DASH 影音分離）
-- [ ] 嘗試更多平台（X/Twitter、Reddit、Instagram、TikTok…），實機驗證可用者才加入
+- [x] YouTube extractor（NewPipeExtractor）＋影音合併（MediaMuxer）— 實機：1080p60 h264＋aac，ffprobe／完整解碼無誤
+- [x] Bilibili extractor（b23.tv 短網址、DASH 影音分離）— 實機：網頁路徑回 412，改走公開 API（WBI 簽章）成功；
+  未登入只拿到 480p（API 列出最高 112）。412／`/zh-Hans/` 轉址／480p 可能與測試時的網路出口 IP 有關，尚未在其他網路驗證
+- [x] 平行下載：共用分段佇列、影音同時下載、多項目同時下載（最多 4 個），整個工作共用連線上限（預設 8）。
+  實測 16 條連線時 Bilibili 音訊明顯變慢（3 秒 → 21 秒，無錯誤），故上限維持 8
+- [x] 圖庫每個項目加刪除按鈕（附確認對話框）
+- [ ] 嘗試更多平台：條件為不需新依賴、未登入可用、`accept()` 能離線以網域辨識，且在 release APK 實機驗證通過才加入
+  （候選：NewPipe 其他服務；X/Twitter、Reddit、Instagram、TikTok 等需先由使用者提供公開測試連結）
 
 ---
 

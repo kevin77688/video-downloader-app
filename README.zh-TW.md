@@ -10,16 +10,18 @@
 從任何 App 分享連結給它（或直接貼上），媒體就會存進手機上的同一個資料夾。
 
 - **不需帳號、不用登入、沒有廣告、不追蹤。** 只支援公開內容。
-- **很小：** 約 2–3 MB。Kotlin + Jetpack Compose，不使用大型函式庫。
-- **穩定下載：** 檔案切成多段同時下載，失敗的分段會自動續傳重試，最後核對檔案大小。
+- **很小：** 約 4 MB。Kotlin + Jetpack Compose，不使用大型函式庫。
+- **快速又穩定：** 檔案切成小段、用多條連線同時下載；影片、音訊與貼文中的每個項目也會同時下載；失敗的分段會自動續傳重試，最後核對檔案大小。
 
 ## 支援平台
 
 | 平台 | 連結 | 狀態 |
 |---|---|---|
 | Threads | `threads.com` / `threads.net` 貼文與分享連結 — 圖片、影片、輪播 | ✅ |
-| YouTube | 影片、Shorts、`youtu.be` 連結 | 🚧 開發中 |
-| Bilibili | `bilibili.com/video/…`、`b23.tv` 短網址 | 🚧 開發中 |
+| YouTube | 影片、Shorts、`youtu.be`、`music.youtube.com` 連結 — 最佳 H.264 畫質＋原始音軌，合併成一個 MP4 | ✅ |
+| Bilibili | `bilibili.com/video/…`（含多 P 的 `?p=`）、`b23.tv` 短網址 — 影片＋音訊合併成一個 MP4 | ✅（未登入時實測為 480p） |
+
+不支援：直播，以及年齡限制、私人、付費或地區限制的內容（需要登入）。
 
 新平台以獨立的 *extractor* 加入，請見[新增平台](#新增平台)。
 
@@ -27,7 +29,7 @@
 
 - **分享選單：** 在 Threads／YouTube／Bilibili／瀏覽器點「分享」，選 *Universal Video Downloader*。下載會在背景執行並顯示通知，不會開啟 App 畫面。
 - **剪貼簿偵測：** 複製連結後打開 App，會自動填入。
-- **圖庫：** 可依平台篩選、排序（最新、最舊、依平台分組），長按可刪除。
+- **圖庫：** 可依平台篩選、排序（最新、最舊、依平台分組），每個項目都有刪除按鈕。
 - **所有檔案放在同一個資料夾**（預設 `內部儲存空間/UniversalDownloader`，可在「設定」變更）。檔名為 `<平台>_<yyyyMMdd_HHmmss>.<副檔名>`，例如 `threads_20261124_153012.mp4`；多個項目的貼文會加上 `_1`、`_2`…。
 - 淺色／深色／跟隨系統主題、Material You 配色、英文與繁體中文介面。
 
@@ -71,8 +73,11 @@ app/src/main/java/io/github/kevin77688/uvd/
 │   ├── Extractor.kt    # 介面 + MediaItem / Extraction 資料模型
 │   ├── Extractors.kt   # 所有 extractor 的註冊表
 │   ├── LinkFinder.kt   # 從分享文字中找出網址
-│   └── threads/
-├── download/           # 前景服務、下載流程、分段下載器
+│   ├── threads/
+│   ├── youtube/        # 透過 NewPipeExtractor
+│   ├── bilibili/
+│   └── newpipe/        # NewPipeExtractor 的橋接（HTTP 與錯誤對應）
+├── download/           # 前景服務、下載流程、分段下載器、MP4 合併
 ├── storage/            # SAF 下載資料夾、檔名規則
 ├── settings/           # 偏好設定
 ├── core/               # HTTP 工具、給使用者看的錯誤訊息
@@ -104,6 +109,10 @@ scripts/release.sh 2.1.0 --push        # 正式版
 本專案僅供個人使用，請只下載你有權下載的內容。請尊重著作權與各平台的服務條款 —
 部分平台（例如 YouTube）的條款不允許下載。
 本 App 與 Meta、Threads、Google、YouTube、Bilibili 無任何關聯，也未獲其認可。所有商標皆屬於其擁有者。
+
+## 致謝
+
+YouTube 支援使用 NewPipe 團隊的 [NewPipeExtractor](https://github.com/TeamNewPipe/NewPipeExtractor)（GPL-3.0）。
 
 ## 授權
 

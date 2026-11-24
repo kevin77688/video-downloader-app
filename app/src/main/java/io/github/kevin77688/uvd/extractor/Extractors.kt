@@ -1,11 +1,15 @@
 package io.github.kevin77688.uvd.extractor
 
+import io.github.kevin77688.uvd.extractor.bilibili.BilibiliExtractor
 import io.github.kevin77688.uvd.extractor.threads.ThreadsExtractor
+import io.github.kevin77688.uvd.extractor.youtube.YouTubeExtractor
 
 /** Registry of every supported site. Order matters only when two extractors accept the same URL. */
 object Extractors {
     val all: List<Extractor> = listOf(
         ThreadsExtractor,
+        YouTubeExtractor,
+        BilibiliExtractor,
     )
 
     val platforms: List<Platform> get() = all.map { it.platform }.distinct()

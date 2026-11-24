@@ -15,6 +15,9 @@ object Http {
     const val BROWSER_UA =
         "Mozilla/5.0 (Linux; Android 16; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) " +
             "Chrome/141.0.0.0 Mobile Safari/537.36"
+    const val DESKTOP_UA =
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) " +
+            "Chrome/141.0.0.0 Safari/537.36"
     const val MAX_RETRIES = 5
     private const val TIMEOUT_MS = 20_000
     private const val MAX_REDIRECTS = 5

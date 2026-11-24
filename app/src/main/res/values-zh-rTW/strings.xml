@@ -46,6 +46,7 @@
     <string name="status_downloading_image">下載圖片</string>
     <string name="status_downloading_video">下載影片</string>
     <string name="status_downloading_audio">下載音訊</string>
+    <string name="status_items_done">已完成 %1$d/%2$d</string>
     <string name="status_merging">正在合併影片與音訊…</string>
     <string name="status_saving">儲存 %1$s</string>
     <plurals name="saved_files">
@@ -68,7 +69,12 @@
     <string name="err_folder_write">無法寫入下載資料夾，請到「設定」重新選擇。</string>
     <string name="err_no_media">沒有可下載的內容：此貼文沒有圖片或影片。</string>
     <string name="err_unsupported_link">這個連結不屬於支援的平台。</string>
-    <string name="err_unsupported_format">目前還不支援這種媒體格式。</string>
+    <string name="err_unavailable">無法取得此內容 — 可能是私人、已刪除、付費或在你所在的地區受限。</string>
+    <string name="err_age_restricted">年齡限制內容需要登入，本 App 不支援。</string>
+    <string name="err_rate_limited">%1$s 目前限制了請求次數，請稍後再試。</string>
+    <string name="err_extract_failed">無法讀取這個 %1$s 連結。網站可能改版了，請嘗試更新 App。</string>
+    <string name="err_live">無法下載直播。</string>
+    <string name="err_merge">無法合併影片與音訊。</string>
     <string name="err_short_link">無法開啟這個分享連結。</string>
     <string name="err_threads_unreadable">無法讀取這則貼文。可能是私人、已刪除，或 Threads 改版了。</string>
 
@@ -85,6 +91,7 @@
     <string name="sort_oldest">最舊優先</string>
     <string name="sort_platform">依平台分組</string>
     <string name="delete_title">要刪除檔案嗎？</string>
+    <string name="delete_body">%1$s\n\n檔案會從手機中移除。</string>
     <string name="video">影片</string>
 
     <!-- Settings -->
@@ -95,8 +102,8 @@
     <string name="settings_download">下載</string>
     <string name="settings_folder">下載資料夾</string>
     <string name="settings_folder_not_set">尚未設定</string>
-    <string name="settings_threads">下載執行緒</string>
-    <string name="settings_threads_help">每個檔案會切成多段同時下載，失敗的分段會自動續傳重試。下載不穩定時請調低。</string>
+    <string name="settings_threads">連線數</string>
+    <string name="settings_threads_help">檔案會切成小段，用多條連線同時下載；影片、音訊與貼文中的每個項目也會同時下載並共用這些連線。失敗的分段會自動續傳重試。下載不穩定時請調低。</string>
     <string name="settings_file_name">檔名</string>
     <string name="settings_file_name_help">平台＋下載時間，例如 youtube_20261124_153012.mp4\n多個項目的貼文會加上 _1、_2…</string>
     <string name="settings_about">關於</string>

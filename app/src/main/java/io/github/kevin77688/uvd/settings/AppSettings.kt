@@ -21,7 +21,7 @@ object AppSettings {
     private const val KEY_THEME = "theme"
     private const val KEY_FOLDER = "folder"
     private const val KEY_THREADS = "threads"
-    const val DEFAULT_THREADS = 4
+    const val DEFAULT_THREADS = 8
 
     private lateinit var prefs: SharedPreferences
 

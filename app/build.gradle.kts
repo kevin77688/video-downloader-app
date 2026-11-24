@@ -74,6 +74,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        // NewPipeExtractor uses java.nio.file APIs that need desugaring below API 33.
+        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -107,6 +109,10 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.activity:activity-compose:1.13.0")
+
+    // YouTube extraction (GPL-3.0). See PLAN.md "v2" for why this is the one non-AndroidX dependency.
+    implementation("com.github.teamnewpipe:NewPipeExtractor:v0.27.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs_nio:2.1.5")
 
     testImplementation("junit:junit:4.13.2")
 }
