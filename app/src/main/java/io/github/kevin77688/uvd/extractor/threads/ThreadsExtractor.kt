@@ -90,8 +90,16 @@ object ThreadsExtractor : Extractor {
         }
     }
 
+    /**
+     * The post's own media; for a text post that shows another post inline (for example a shared
+     * Instagram reel, in `text_post_app_info.linked_inline_media`), that post's media.
+     */
+    private fun mediaItems(post: JSONObject): List<MediaItem> = ownMedia(post).ifEmpty {
+        post.optJSONObject("text_post_app_info")?.optJSONObject("linked_inline_media")?.let(::ownMedia).orEmpty()
+    }
+
     /** media_type: 1 image, 2 video, 8 carousel (see carousel_media), 19 text only. */
-    private fun mediaItems(post: JSONObject): List<MediaItem> {
+    private fun ownMedia(post: JSONObject): List<MediaItem> {
         if (post.optInt("media_type") == MEDIA_TYPE_TEXT) return emptyList()
         val carousel = post.optJSONArray("carousel_media")
         val nodes = if (carousel != null && carousel.length() > 0) {

@@ -7,6 +7,8 @@ versions: [SemVer](https://semver.org). Add entries under **Unreleased** as you 
 ## [Unreleased]
 
 ### Fixed
+- Threads: text posts that show a shared Instagram reel or post inline now download that video or image
+  (they used to fail with "this post has no images or videos").
 - Video thumbnails in the gallery no longer show up black for videos that fade in from black.
 
 ### Changed
